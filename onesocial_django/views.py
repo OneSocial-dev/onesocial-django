@@ -44,14 +44,3 @@ class CompleteLoginView(generic.View):
         )
         grant = oauth.token(code=code, redirect_uri=get_redirect_uri(request))
         return HttpResponse(grant.access_token)
-
-
-class ErrorView(generic.TemplateView):
-    template_name = 'onesocial_django/error.html'
-
-    def get_context_data(self):
-        return {
-            'error': self.request.GET.get('error'),
-            'error_description': self.request.GET.get('error_description'),
-            'state': self.request.GET.get('state'),
-        }

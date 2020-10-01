@@ -8,7 +8,7 @@ REQUIRED_SETTINGS = [
 ]
 
 DEFAULTS = {
-    'ONESOCIAL_ERROR_URL': reverse_lazy('onesocial:error'),
+    'ONESOCIAL_ERROR_URL': '/',
 }
 
 
