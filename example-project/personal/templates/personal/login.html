@@ -1,0 +1,6 @@
+{% extends "personal/base.html" %}
+
+{% block content %}
+    <a href="{% url 'onesocial:login' network='google' %}">Google</a>
+    <a href="{% url 'onesocial:login' network='vk' %}">VK</a>
+{% endblock %}
