@@ -1,12 +1,15 @@
 import logging
+from datetime import timedelta
 from urllib.parse import urlencode
 
 import onesocial
-from django.http.response import HttpResponseRedirect, Http404, HttpResponse
+from django.http.response import Http404, HttpResponse, HttpResponseRedirect
+from django.utils import timezone
 from django.views import generic
 
-from .utils import get_redirect_uri
+from .models import SocialAccount, SocialProfile
 from .settings import get_setting
+from .utils import get_redirect_uri
 
 logger = logging.getLogger(__name__)
 
@@ -26,6 +29,43 @@ class LoginView(generic.View):
 
 
 class CompleteLoginView(generic.View):
+    def make_social_account(self, request, grant):
+        state = request.GET.get('state', '')
+
+        try:
+            return SocialAccount.objects.get(access_token=grant.access_token)
+        except SocialAccount.DoesNotExist:
+            pass
+
+        social_account = SocialAccount(access_token=grant.access_token)
+
+        if grant.expires_in:
+            social_account.expires_at = timezone.now() + timedelta(seconds=grant.expires_in)
+
+        social_account.save()
+
+        try:
+            profile = onesocial.UsersAPI(access_token=social_account.access_token).me()
+        except onesocial.OneSocialError as e:
+            logger.exception("Error while requesting user profile")
+            return HttpResponseRedirect(get_setting('ONESOCIAL_ERROR_URL') + '?' + urlencode({
+                'error': e.code,
+                'error_description': e.message,
+                'state': state,
+            }))
+
+        SocialProfile.objects.create(
+            account=social_account,
+            uid=profile.uid,
+            network=profile.network,
+            human_name=profile.human_name,
+            username=profile.username,
+            email=profile.email,
+            picture=profile.picture,
+        )
+
+        return social_account
+
     def get(self, request):
         state = request.GET.get('state', '')
 
@@ -57,4 +97,6 @@ class CompleteLoginView(generic.View):
                 'state': state,
             }))
 
-        return HttpResponse(grant.access_token)
+        social_account = self.make_social_account(request, grant)
+
+        return HttpResponse(social_account.profile.username)
