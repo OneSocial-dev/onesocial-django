@@ -72,6 +72,9 @@ class SocialAccount(models.Model):
 
         return super().save(*args, **kwargs)
 
+    def __str__(self):
+        return "{} @ {}".format(self.profile.uid, self.profile.network)
+
     class Meta:
         verbose_name = gettext_lazy("social account")
         verbose_name_plural = gettext_lazy("social accounts")
@@ -116,6 +119,9 @@ class SocialProfile(models.Model):
         blank=True,
         verbose_name=gettext_lazy("picture URL"),
     )
+
+    def __str__(self):
+        return "{} @ {}".format(self.uid, self.network)
 
     class Meta:
         unique_together = [('network', 'uid')]
