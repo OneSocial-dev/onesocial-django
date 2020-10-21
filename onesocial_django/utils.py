@@ -67,6 +67,10 @@ def complete_registration(request, social_account):
     social_account.user = user
     social_account.save()
 
-    login(request, user)
+    return complete_login(request, social_account)
+
+
+def complete_login(request, social_account):
+    login(request, social_account.user)
 
     return HttpResponseRedirect(get_setting('ONESOCIAL_LOGGED_IN_URL'))

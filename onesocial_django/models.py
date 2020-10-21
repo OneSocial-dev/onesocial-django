@@ -110,5 +110,6 @@ class SocialProfile(models.Model):
     )
 
     class Meta:
+        unique_together = [('network', 'uid')]
         verbose_name = gettext_lazy("social profile")
         verbose_name_plural = gettext_lazy("social profiles")

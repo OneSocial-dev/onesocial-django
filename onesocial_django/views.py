@@ -9,7 +9,7 @@ from django.views import generic
 
 from .models import SocialAccount, SocialProfile
 from .settings import get_func, get_setting
-from .utils import complete_registration, get_redirect_uri
+from .utils import complete_login, complete_registration, get_redirect_uri
 
 logger = logging.getLogger(__name__)
 
@@ -37,15 +37,8 @@ class CompleteLoginView(generic.View):
         except SocialAccount.DoesNotExist:
             pass
 
-        social_account = SocialAccount(access_token=grant.access_token)
-
-        if grant.expires_in:
-            social_account.expires_at = timezone.now() + timedelta(seconds=grant.expires_in)
-
-        social_account.save()
-
         try:
-            profile = onesocial.UsersAPI(access_token=social_account.access_token).me()
+            profile = onesocial.UsersAPI(access_token=grant.access_token).me()
         except onesocial.OneSocialError as e:
             logger.exception("Error while requesting user profile")
             return HttpResponseRedirect(get_setting('ONESOCIAL_ERROR_URL') + '?' + urlencode({
@@ -53,6 +46,18 @@ class CompleteLoginView(generic.View):
                 'error_description': e.message,
                 'state': state,
             }))
+
+        try:
+            return SocialAccount.objects.get(profile__network=profile.network, profile__uid=profile.uid)
+        except SocialAccount.DoesNotExist:
+            pass
+
+        social_account = SocialAccount(access_token=grant.access_token)
+
+        if grant.expires_in:
+            social_account.expires_at = timezone.now() + timedelta(seconds=grant.expires_in)
+
+        social_account.save()
 
         SocialProfile.objects.create(
             account=social_account,
@@ -98,6 +103,8 @@ class CompleteLoginView(generic.View):
             }))
 
         social_account = self.make_social_account(request, grant)
+        if social_account.user:
+            return complete_login(request, social_account)
 
         validate_func = get_func(get_setting('ONESOCIAL_VALIDATE_FUNC'))
 
