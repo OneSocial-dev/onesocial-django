@@ -34,4 +34,4 @@ class ConfirmUsernameView(generic.View):
         account.profile.username = form.cleaned_data['username']
         account.profile.save()
 
-        return complete_registration(account)
+        return complete_registration(request, account)

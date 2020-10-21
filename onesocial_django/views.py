@@ -105,4 +105,4 @@ class CompleteLoginView(generic.View):
         if validation_response:
             return validation_response
 
-        return complete_registration(social_account)
+        return complete_registration(request, social_account)

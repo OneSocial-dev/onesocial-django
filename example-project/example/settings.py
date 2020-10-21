@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 
 import os
 
+from django.urls import reverse_lazy
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -128,6 +130,8 @@ STATIC_URL = '/static/'
 
 ONESOCIAL_CLIENT_ID = ''
 ONESOCIAL_CLIENT_SECRET = ''
+
+ONESOCIAL_LOGGED_IN_URL = reverse_lazy('personal:login')
 
 ONESOCIAL_VALIDATE_FUNC = 'personal.social.validate_func'
 

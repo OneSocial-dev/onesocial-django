@@ -1,6 +1,14 @@
 {% extends "personal/base.html" %}
 
+{% load i18n %}
+
 {% block content %}
+    {% if request.user.is_authenticated %}
+        <p>{% trans "Authenticated as" %}: {{ request.user.username }}</p>
+        <p>{% trans "ID" %}: {{ request.user.id }}</p>
+        <p>{% trans "Email" %}: {{ request.user.email }}</p>
+    {% endif %}
+
     <a href="{% url 'onesocial:login' network='google' %}">Google</a>
     <a href="{% url 'onesocial:login' network='vk' %}">VK</a>
 {% endblock %}

@@ -1,7 +1,7 @@
 import secrets
 
-from django.contrib.auth import get_user_model
-from django.http.response import HttpResponse
+from django.contrib.auth import get_user_model, login
+from django.http.response import HttpResponseRedirect
 from django.urls import reverse
 
 from .settings import get_func, get_setting
@@ -59,7 +59,7 @@ def default_register(social_account):
     return user
 
 
-def complete_registration(social_account):
+def complete_registration(request, social_account):
     register_func = get_func(get_setting('ONESOCIAL_REGISTER_FUNC'))
 
     user = register_func(social_account)
@@ -67,4 +67,6 @@ def complete_registration(social_account):
     social_account.user = user
     social_account.save()
 
-    return HttpResponse("{}: {}".format(user.id, user))
+    login(request, user)
+
+    return HttpResponseRedirect(get_setting('ONESOCIAL_LOGGED_IN_URL'))

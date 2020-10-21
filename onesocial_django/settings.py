@@ -10,6 +10,7 @@ REQUIRED_SETTINGS = [
 
 DEFAULTS = {
     'ONESOCIAL_ERROR_URL': '/',
+    'ONESOCIAL_LOGGED_IN_URL': '/',
     'ONESOCIAL_VALIDATE_FUNC': 'onesocial_django.utils.default_validate',
     'ONESOCIAL_REGISTER_FUNC': 'onesocial_django.utils.default_register',
 }
