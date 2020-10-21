@@ -8,8 +8,8 @@ from django.utils import timezone
 from django.views import generic
 
 from .models import SocialAccount, SocialProfile
-from .settings import get_setting
-from .utils import get_redirect_uri
+from .settings import get_func, get_setting
+from .utils import complete_registration, get_redirect_uri
 
 logger = logging.getLogger(__name__)
 
@@ -99,4 +99,10 @@ class CompleteLoginView(generic.View):
 
         social_account = self.make_social_account(request, grant)
 
-        return HttpResponse(social_account.profile.username)
+        validate_func = get_func(get_setting('ONESOCIAL_VALIDATE_FUNC'))
+
+        validation_response = validate_func(social_account)
+        if validation_response:
+            return validation_response
+
+        return complete_registration(social_account)

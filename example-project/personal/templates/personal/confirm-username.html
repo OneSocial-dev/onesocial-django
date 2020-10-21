@@ -1,0 +1,24 @@
+{% extends "personal/base.html" %}
+
+{% load i18n %}
+
+{% block content %}
+    <form action="" method="post">
+        {% csrf_token %}
+
+        <p>
+            {% trans "Please, confirm your username:" %}
+        </p>
+        <input
+            type="text"
+            name="{{ form.username.html_name }}"
+            value="{{ form.username.value }}"
+        >
+
+        {% for error in form.username.errors %}
+            <p>{{ error }}</p>
+        {% endfor %}
+
+        <button type="submit">{% trans "Confirm" %}</button>
+    </form>
+{% endblock %}

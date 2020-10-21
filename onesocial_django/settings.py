@@ -1,5 +1,6 @@
+import importlib
+
 from django.conf import settings
-from django.urls import reverse_lazy
 
 
 REQUIRED_SETTINGS = [
@@ -9,6 +10,7 @@ REQUIRED_SETTINGS = [
 
 DEFAULTS = {
     'ONESOCIAL_ERROR_URL': '/',
+    'ONESOCIAL_VALIDATE_FUNC': 'onesocial_django.utils.default_validate',
 }
 
 
@@ -27,3 +29,10 @@ def get_setting(name):
         return DEFAULTS[name]
     else:
         return None
+
+
+def get_func(path):
+    module_name, func_name = path.rsplit('.', maxsplit=1)
+    module = importlib.import_module(module_name)
+    func = getattr(module, func_name)
+    return func

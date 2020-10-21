@@ -129,6 +129,8 @@ STATIC_URL = '/static/'
 ONESOCIAL_CLIENT_ID = ''
 ONESOCIAL_CLIENT_SECRET = ''
 
+ONESOCIAL_VALIDATE_FUNC = 'personal.social.validate_func'
+
 
 try:
     from .local_settings import *
