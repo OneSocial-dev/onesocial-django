@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-21 10:02+0000\n"
+"POT-Creation-Date: 2020-10-21 13:06+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,22 +20,26 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: personal/templates/personal/confirm-username.html:10
+#: personal/templates/personal/confirm-username.html:11
 msgid "Please, confirm your username:"
 msgstr "Пожалуйста, подтвердите свой username:"
 
-#: personal/templates/personal/confirm-username.html:22
+#: personal/templates/personal/confirm-username.html:25
 msgid "Confirm"
 msgstr "Подтвердить"
 
-#: personal/templates/personal/login.html:7
+#: personal/templates/personal/login.html:9
 msgid "Authenticated as"
 msgstr "Аутентифицирован как"
 
-#: personal/templates/personal/login.html:8
+#: personal/templates/personal/login.html:10
 msgid "ID"
 msgstr "ID"
 
-#: personal/templates/personal/login.html:9
+#: personal/templates/personal/login.html:11
 msgid "Email"
 msgstr "Email"
+
+#: personal/templates/personal/login.html:18
+msgid "Login using"
+msgstr "Войти с помощью"

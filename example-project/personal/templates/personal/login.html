@@ -4,11 +4,20 @@
 
 {% block content %}
     {% if request.user.is_authenticated %}
-        <p>{% trans "Authenticated as" %}: {{ request.user.username }}</p>
-        <p>{% trans "ID" %}: {{ request.user.id }}</p>
-        <p>{% trans "Email" %}: {{ request.user.email }}</p>
+        <div class="card mb-3">
+            <div class="card-body">
+                <p>{% trans "Authenticated as" %}: {{ request.user.username }}</p>
+                <p>{% trans "ID" %}: {{ request.user.id }}</p>
+                <p>{% trans "Email" %}: {{ request.user.email }}</p>
+            </div>
+        </div>
     {% endif %}
 
-    <a href="{% url 'onesocial:login' network='google' %}">Google</a>
-    <a href="{% url 'onesocial:login' network='vk' %}">VK</a>
+    <div class="card">
+        <div class="card-body">
+            <p>{% trans "Login using" %}</p>
+            <a href="{% url 'onesocial:login' network='google' %}" class="btn btn-primary">Google</a>
+            <a href="{% url 'onesocial:login' network='vk' %}" class="btn btn-primary">VK</a>
+        </div>
+    </div>
 {% endblock %}

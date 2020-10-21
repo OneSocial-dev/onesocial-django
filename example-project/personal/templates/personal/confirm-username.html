@@ -6,19 +6,22 @@
     <form action="" method="post">
         {% csrf_token %}
 
-        <p>
-            {% trans "Please, confirm your username:" %}
-        </p>
-        <input
-            type="text"
-            name="{{ form.username.html_name }}"
-            value="{{ form.username.value }}"
-        >
+        <div class="form-group">
+            <label for="{{ form.username.id_for_label }}">
+                {% trans "Please, confirm your username:" %}
+            </label>
+            <input
+                type="text"
+                class="form-control"
+                name="{{ form.username.html_name }}"
+                value="{{ form.username.value }}"
+            >
+        </div>
 
         {% for error in form.username.errors %}
-            <p>{{ error }}</p>
+            <p class="text-danger">{{ error }}</p>
         {% endfor %}
 
-        <button type="submit">{% trans "Confirm" %}</button>
+        <button type="submit" class="btn btn-primary">{% trans "Confirm" %}</button>
     </form>
 {% endblock %}
