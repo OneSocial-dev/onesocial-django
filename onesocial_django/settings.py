@@ -1,13 +1,19 @@
+"""
+Этот модуль предоставляет вспомогательные функции, с помощью которых пакет
+может работать с настройками проекта.
+"""
 import importlib
 
 from django.conf import settings
 
 
+# Обязательные настройки
 REQUIRED_SETTINGS = [
     'ONESOCIAL_CLIENT_ID',
     'ONESOCIAL_CLIENT_SECRET',
 ]
 
+# Дефолты для необязательных настроек
 DEFAULTS = {
     'ONESOCIAL_ERROR_URL': '/',
     'ONESOCIAL_LOGGED_IN_URL': '/',
@@ -22,6 +28,10 @@ def _raise_required_error():
 
 
 def get_setting(name):
+    """
+    Возвращает значение для настройки, или дефолт, если он задан, или None.
+    Если настройка обязательная, но она не задана - выбрасывает исключение.
+    """
     if hasattr(settings, name):
         return getattr(settings, name)
 
@@ -34,6 +44,9 @@ def get_setting(name):
 
 
 def get_func(path):
+    """
+    Возвращает объект функции по ее пути. Например 'onesocial_django.utils.default_validate'.
+    """
     module_name, func_name = path.rsplit('.', maxsplit=1)
     module = importlib.import_module(module_name)
     func = getattr(module, func_name)

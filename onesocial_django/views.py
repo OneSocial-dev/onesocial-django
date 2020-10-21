@@ -15,6 +15,11 @@ logger = logging.getLogger(__name__)
 
 
 class LoginView(generic.View):
+    """
+    Вью инициализации входа через соцсети. Принимает один параметр через URL -
+    network, код социальной сети. Перенаправляет пользователя на страницу авторизации
+    в социальной сети.
+    """
     def get(self, request, network):
         oauth = onesocial.OAuth(
             client_id=get_setting('ONESOCIAL_CLIENT_ID'),
@@ -29,6 +34,21 @@ class LoginView(generic.View):
 
 
 class CompleteLoginView(generic.View):
+    """
+    Вью завершения входа через соцсети. На эту вью пользователь попадает после
+    авторизации в соцсети.
+
+    Для новых пользователей создает объекты SocialAccount и SocialProfile,
+    затем вызывает ONESOCIAL_VALIDATE_FUNC. Если ONESOCIAL_VALIDATE_FUNC не вернул
+    HttpResponse, завершает регистрацию с помощью onesocial_django.utils.complete_registration.
+
+    Для старых пользователей получает существует SocialAccount и аутентифицирует их
+    с помощью onesocial_django.utils.complete_login.
+
+    В случае успеха перенаправляет на ONESOCIAL_LOGGED_IN_URL.
+
+    В случае ошики перенаправляет на ONESOCIAL_ERROR_URL.
+    """
     def make_social_account(self, request, grant):
         state = request.GET.get('state', '')
 
