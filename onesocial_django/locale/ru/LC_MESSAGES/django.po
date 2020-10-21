@@ -1,0 +1,93 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-10-21 10:02+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: onesocial_django/admin.py:22 onesocial_django/models.py:99
+msgid "network"
+msgstr "соцсеть"
+
+#: onesocial_django/models.py:16
+msgid "account token"
+msgstr "токен аккаунта"
+
+#: onesocial_django/models.py:24
+msgid "user"
+msgstr "пользователь"
+
+#: onesocial_django/models.py:28
+msgid "access token"
+msgstr "токен доступа"
+
+#: onesocial_django/models.py:33
+msgid "access token expires at"
+msgstr "токена доступа истекает"
+
+#: onesocial_django/models.py:38
+msgid "created at"
+msgstr "создано"
+
+#: onesocial_django/models.py:44
+msgid "extra data JSON"
+msgstr "JSON с доп. данными"
+
+#: onesocial_django/models.py:79 onesocial_django/models.py:89
+msgid "social account"
+msgstr "социальный аккаунт"
+
+#: onesocial_django/models.py:80
+msgid "social accounts"
+msgstr "социальные аккаунты"
+
+#: onesocial_django/models.py:94
+msgid "UID"
+msgstr "UID"
+
+#: onesocial_django/models.py:95
+msgid "User ID in the social network"
+msgstr "ID пользователя в социальной сети"
+
+#: onesocial_django/models.py:100
+msgid "Social network ID"
+msgstr "ID социальной сети"
+
+#: onesocial_django/models.py:105
+msgid "human-readable name"
+msgstr "человеко-читаемое имя"
+
+#: onesocial_django/models.py:109
+msgid "latinized username"
+msgstr "латинизированный юзернейм"
+
+#: onesocial_django/models.py:115
+msgid "email"
+msgstr "email"
+
+#: onesocial_django/models.py:120
+msgid "picture URL"
+msgstr "URL картинки"
+
+#: onesocial_django/models.py:128
+msgid "social profile"
+msgstr "социальный профиль"
+
+#: onesocial_django/models.py:129
+msgid "social profiles"
+msgstr "социальные профили"
