@@ -10,7 +10,11 @@ from .utils import generate_account_token
 class SocialAccount(models.Model):
     # Unique token, which can be used to identify a social account without using
     # a sequential ID.
-    account_token = models.CharField(max_length=32, unique=True)
+    account_token = models.CharField(
+        max_length=32,
+        unique=True,
+        verbose_name=gettext_lazy("account token"),
+    )
 
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -34,7 +38,11 @@ class SocialAccount(models.Model):
         verbose_name=gettext_lazy("created at"),
     )
 
-    extra_json = models.TextField(null=True, blank=True)
+    extra_json = models.TextField(
+        null=True,
+        blank=True,
+        verbose_name=gettext_lazy("extra data JSON"),
+    )
 
     def get_extra_dict(self):
         try:
