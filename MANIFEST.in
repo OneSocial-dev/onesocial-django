@@ -1,0 +1,2 @@
+global-include *.po
+exclude venv/** example-project/** .git
