@@ -51,7 +51,7 @@ class SocialAccount(models.Model):
         self.extra_json = json.dumps(extra_dict)
 
     def get_extra(self, key, default=None):
-        return self.get_extra_dict().get(key, default=default)
+        return self.get_extra_dict().get(key, default)
 
     def set_extra(self, key, value):
         extra_dict = self.get_extra_dict()

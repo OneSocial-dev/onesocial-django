@@ -31,7 +31,7 @@ class ConfirmUsernameView(generic.View):
                 'form': form,
             })
 
-        account.set_extra('confirmed_username', form.cleaned_data['username'])
-        account.save()
+        account.profile.username = form.cleaned_data['username']
+        account.profile.save()
 
         return complete_registration(account)
